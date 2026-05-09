@@ -34,6 +34,8 @@
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
+            /* GPU Acceleration */
+            transform: translateZ(0);
         }
 
         section {
@@ -43,10 +45,13 @@
             position: relative;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
             overflow: hidden;
+            /* Performance optimization */
+            will-change: transform;
         }
 
         .overlay {
