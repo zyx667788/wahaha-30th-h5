@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>娃哈哈AD钙奶 30周年 - 不管几岁，快乐万岁</title>
+    <style>
+        :root {
+            --brand-green: #008135;
+            --brand-red: #e30012;
+            --brand-white: #ffffff;
+            --bg-dark: #0e0d0c;
+            --text-muted: #888;
+            --accent: #ffdd00;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--brand-white);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow-x: auto;
+        }
+
+        /* Showcase Stage */
+        .stage {
+            display: flex;
+            padding: 80px 40px;
+            gap: 40px;
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 0%, #222 0%, var(--bg-dark) 70%);
+            box-sizing: border-box;
+        }
+
+        .stage-header {
+            position: fixed;
+            top: 20px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            font-family: monospace;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            z-index: 100;
+        }
+
+        /* Phone Frame */
+        .phone {
+            flex: 0 0 360px;
+            height: 780px;
+            background: #1a1a1a;
+            border-radius: 44px;
+            position: relative;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            border: 12px solid #000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            z-index: 10;
+        }
+
+        /* Phone Content */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
+            padding: 60px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin: 0 0 12px;
+            line-height: 1.1;
+        }
+
+        p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin: 0 0 24px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: var(--brand-red);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Specific Pages */
+        #page1 { background-image: url('assets/cover.png'); }
+        #page2 { background-image: url('assets/classroom.png'); }
+        #page3 { background-image: url('assets/flavors.png'); }
+        #page4 { background-image: url('assets/interaction.png'); }
+        #page5 { background-image: url('assets/quiz.png'); }
+        #page6 { background-image: url('assets/diploma.png'); }
+
+        .tag {
+            background: var(--brand-green);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        /* Interaction Elements */
+        .quiz-option {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .footer-nav {
+            height: 60px;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #333;
+        }
+
+        .nav-item {
+            width: 24px;
+            height: 24px;
+            background: #444;
+            border-radius: 4px;
+        }
+
+        .nav-item.active {
+            background: var(--brand-green);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="stage-header">
+        <div>HI-FI H5 PROTOTYPE · WAHAHA 30TH</div>
+        <div>OPEN-DESIGN SKILL</div>
+    </div>
+
+    <div class="stage">
+        <!-- Page 1: Cover -->
+        <div class="phone" data-od-id="p1">
+            <div class="content" id="page1">
+                <div class="overlay">
+                    <span class="tag">情怀回归</span>
+                    <h2>不管几岁<br><span style="color:var(--accent)">快乐万岁</span></h2>
+                    <p>AD钙奶30周年庆典，带你找回那份最纯粹的酸甜快乐。</p>
+                    <button class="btn">开启快乐之旅</button>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <div class="nav-item active"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+            </div>
+        </div>
+
+        <!-- Page 2: Nostalgia -->
+        <div class="phone" data-od-id="p2">
+            <div class="content" id="page2">
+                <div class="overlay">
+                    <span class="tag">时光机</span>
+                    <h2>那一年的教室<br>有酸甜的味道</h2>
+                    <p>还记得课间操后，那瓶藏在课桌里的AD钙奶吗？</p>
+                    <button class="btn">寻找课桌回忆</button>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <div class="nav-item"></div>
+                <div class="nav-item active"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+            </div>
+        </div>
+
+        <!-- Page 3: Flavors -->
+        <div class="phone" data-od-id="p3">
+            <div class="content" id="page3">
+                <div class="overlay">
+                    <span class="tag">风味探索</span>
+                    <h2>多重风味<br>懂你所爱</h2>
+                    <p>原味经典，蜜桃甜美，草莓浓郁。哪一个是你的天选之味？</p>
+                    <button class="btn">探索新口味</button>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item active"></div>
+                <div class="nav-item"></div>
+            </div>
+        </div>
+
+        <!-- Page 4: Interaction (Click Game) -->
+        <div class="phone" data-od-id="p4">
+            <div class="content" id="page4">
+                <div class="overlay">
+                    <span class="tag">互动游戏</span>
+                    <h2>快乐接力<br>狂戳补钙</h2>
+                    <p>在10秒内尽可能点击AD钙奶，获取快乐能量！</p>
+                    <div style="background:rgba(0,0,0,0.5); padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 20px;">
+                        <span style="font-size: 40px; color: var(--accent); font-weight: bold;">08</span>
+                        <div style="font-size: 12px; color: #888;">快乐分值</div>
+                    </div>
+                    <button class="btn">开始挑战</button>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item active"></div>
+                <div class="nav-item"></div>
+            </div>
+        </div>
+
+        <!-- Page 5: Quiz -->
+        <div class="phone" data-od-id="p5">
+            <div class="content" id="page5">
+                <div class="overlay">
+                    <span class="tag">性格测试</span>
+                    <h2>测测你的<br>天选快乐指数</h2>
+                    <div class="quiz-option">Q: 看到AD钙奶，你第一反应是？</div>
+                    <div class="quiz-option" style="background:var(--brand-green); border-color:transparent;">A. 爷青回，必须整一瓶</div>
+                    <div class="quiz-option">B. 哪怕30岁，我也是宝宝</div>
+                    <div class="quiz-option">C. 好奇新包装长啥样</div>
+                    <button class="btn" style="margin-top:10px">查看测试结果</button>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item active"></div>
+            </div>
+        </div>
+
+        <!-- Page 6: Result -->
+        <div class="phone" data-od-id="p6">
+            <div class="content" id="page6">
+                <div class="overlay">
+                    <span class="tag">荣誉时刻</span>
+                    <h2>恭喜获得<br>快乐毕业生称号</h2>
+                    <p>你是资深“天选AD人”，快乐指数 99%！快去分享这份喜悦吧。</p>
+                    <button class="btn">领取专属奖章</button>
+                    <button class="btn" style="background:#444; margin-top:10px">回味经典网站</button>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item"></div>
+                <div class="nav-item active"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
