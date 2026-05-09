@@ -16,6 +16,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body, html {
@@ -23,7 +24,7 @@
             height: 100%;
             overflow: hidden;
             background-color: #000;
-            font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+            font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
         }
 
         /* Full page scrolling container */
@@ -34,7 +35,6 @@
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            /* GPU Acceleration */
             transform: translateZ(0);
         }
 
@@ -50,7 +50,6 @@
             flex-direction: column;
             justify-content: flex-end;
             overflow: hidden;
-            /* Performance optimization */
             will-change: transform;
         }
 
@@ -58,7 +57,7 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
-            padding: 40px 20px 80px;
+            padding: 40px 20px 60px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -78,7 +77,7 @@
         }
 
         h2 {
-            font-size: 36px;
+            font-size: 32px;
             color: white;
             line-height: 1.2;
             margin-bottom: 15px;
@@ -86,17 +85,17 @@
         }
 
         p {
-            font-size: 16px;
+            font-size: 15px;
             color: rgba(255,255,255,0.9);
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         .btn {
             background: var(--brand-red);
             color: white;
             border: none;
-            padding: 18px;
+            padding: 16px;
             border-radius: 50px;
             font-size: 18px;
             font-weight: bold;
@@ -105,6 +104,13 @@
             box-shadow: 0 4px 15px rgba(227, 0, 18, 0.4);
             cursor: pointer;
             text-transform: uppercase;
+            transition: background 0.2s, transform 0.1s;
+            user-select: none;
+        }
+
+        .btn:active {
+            background: #b0000e;
+            transform: scale(0.98);
         }
 
         /* Background Images */
@@ -121,14 +127,14 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             border-left: 3px solid white;
             border-bottom: 3px solid white;
             transform: translateX(-50%) rotate(-45deg);
             animation: bounce 2s infinite;
             z-index: 10;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         @keyframes bounce {
@@ -153,6 +159,7 @@
             margin-top: 10px;
             border: 1px solid rgba(255,255,255,0.2);
             font-size: 15px;
+            cursor: pointer;
         }
 
         .quiz-item.active {
@@ -161,26 +168,47 @@
         }
 
         /* Interaction - Game */
+        .game-score-box {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
         .game-score {
-            font-size: 60px;
+            font-size: 50px;
             font-weight: 900;
             color: var(--accent);
-            text-align: center;
-            margin-bottom: 10px;
+            line-height: 1;
+        }
+        .game-target {
+            width: 120px;
+            height: 120px;
+            background: url('assets/flavors.png') center/contain no-repeat;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            border: 4px solid var(--accent);
+            animation: pulse 1s infinite;
+            cursor: pointer;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="mainContainer">
         <!-- Page 1 -->
         <section id="page1">
             <div class="overlay">
                 <span class="tag">30周年庆</span>
                 <h2>不管几岁<br><span style="color:var(--accent)">快乐万岁</span></h2>
                 <p>AD钙奶面世30周年，带你开启一场穿越时光的酸甜旅程。</p>
-                <button class="btn" onclick="document.getElementById('page2').scrollIntoView()">立即启程</button>
+                <button class="btn" data-next="page2">立即启程</button>
             </div>
             <div class="arrow"></div>
         </section>
@@ -191,7 +219,7 @@
                 <span class="tag">时光机</span>
                 <h2>那一年的课桌<br>总有一瓶AD钙</h2>
                 <p>还记得课间操后的第一口清爽吗？那是我们共同的童年味道。</p>
-                <button class="btn">寻找回忆</button>
+                <button class="btn" data-next="page3">寻找回忆</button>
             </div>
             <div class="arrow"></div>
         </section>
@@ -202,7 +230,7 @@
                 <span class="tag">风味探索</span>
                 <h2>酸酸甜甜<br>懂你所爱</h2>
                 <p>原味经典、蜜桃甜美、草莓浓郁，哪一款才是你的“本命”？</p>
-                <button class="btn">发现美味</button>
+                <button class="btn" data-next="page4">发现美味</button>
             </div>
             <div class="arrow"></div>
         </section>
@@ -211,10 +239,12 @@
         <section id="page4">
             <div class="overlay">
                 <span class="tag">互动游戏</span>
-                <h2>快乐补给站<br>狂戳加钙</h2>
-                <div class="game-score">15</div>
-                <p>限时10秒，点击AD钙奶获取快乐能量！</p>
-                <button class="btn">开始挑战</button>
+                <div class="game-target" id="gameTarget"></div>
+                <div class="game-score-box">
+                    <div class="game-score" id="score">00</div>
+                    <div style="font-size:12px; color:#aaa; margin-top:5px;">快乐值 (点击上方瓶身)</div>
+                </div>
+                <button class="btn" data-next="page5" id="gameBtn">开始挑战</button>
             </div>
             <div class="arrow"></div>
         </section>
@@ -226,11 +256,11 @@
                 <h2>测测你的<br>天选快乐基因</h2>
                 <div class="quiz-box">
                     <div style="font-size:14px; color:#ddd; margin-bottom:10px;">Q: 如果有时光机，你想回到？</div>
-                    <div class="quiz-item">A. 躲在被窝里喝奶的午后</div>
-                    <div class="quiz-item active">B. 和暗恋对象分享AD钙的课间</div>
-                    <div class="quiz-item">C. 第一次拿到新包装的时刻</div>
+                    <div class="quiz-item" onclick="selectQuiz(this)">A. 躲在被窝里喝奶的午后</div>
+                    <div class="quiz-item" onclick="selectQuiz(this)">B. 和暗恋对象分享AD钙的课间</div>
+                    <div class="quiz-item" onclick="selectQuiz(this)">C. 第一次拿到新包装的时刻</div>
                 </div>
-                <button class="btn">查看结果</button>
+                <button class="btn" data-next="page6">查看结果</button>
             </div>
             <div class="arrow"></div>
         </section>
@@ -241,11 +271,64 @@
                 <span class="tag">荣誉时刻</span>
                 <h2>认证成功<br>资深快乐天选人</h2>
                 <p>恭喜获得“快乐毕业生”勋章！<br>在这个30周年，让我们继续可爱下去。</p>
-                <button class="btn">领取专属福利</button>
-                <button class="btn" style="margin-top:12px; background:#333;">分享这份快乐</button>
+                <button class="btn" onclick="location.reload()">重新回味</button>
+                <button class="btn" style="margin-top:12px; background:#333;" onclick="alert('分享功能正在开启中...')">分享这份快乐</button>
             </div>
         </section>
     </div>
 
+    <script>
+        // Global Navigation
+        document.querySelectorAll('.btn[data-next]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const nextId = btn.getAttribute('data-next');
+                document.getElementById(nextId).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Game Logic
+        let score = 0;
+        let gameActive = false;
+        const scoreEl = document.getElementById('score');
+        const gameTarget = document.getElementById('gameTarget');
+        const gameBtn = document.getElementById('gameBtn');
+
+        gameTarget.addEventListener('click', (e) => {
+            if (!gameActive) {
+                gameActive = true;
+                gameBtn.innerText = "挑战中...";
+                setTimeout(() => {
+                    gameActive = false;
+                    gameBtn.innerText = "完成！去领奖";
+                }, 5000);
+            }
+            if (gameActive) {
+                score++;
+                scoreEl.innerText = score.toString().padStart(2, '0');
+                // Floating effect
+                const float = document.createElement('div');
+                float.innerText = '+1';
+                float.style.position = 'absolute';
+                float.style.left = e.clientX + 'px';
+                float.style.top = e.clientY + 'px';
+                float.style.color = 'var(--accent)';
+                float.style.fontWeight = 'bold';
+                float.style.pointerEvents = 'none';
+                float.style.transition = 'all 0.5s ease-out';
+                document.body.appendChild(float);
+                setTimeout(() => {
+                    float.style.transform = 'translateY(-50px)';
+                    float.style.opacity = '0';
+                    setTimeout(() => float.remove(), 500);
+                }, 10);
+            }
+        });
+
+        // Quiz Logic
+        function selectQuiz(el) {
+            document.querySelectorAll('.quiz-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+        }
+    </script>
 </body>
 </html>
